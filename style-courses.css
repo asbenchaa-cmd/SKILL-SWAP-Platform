@@ -1,0 +1,39 @@
+/* ============================================================
+   style-courses.css — Courses page styles
+   ============================================================ */
+
+.material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; display:inline-block; vertical-align:middle; }
+.glass-panel { background:rgba(34,42,61,.4); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); }
+.maghreb-glow { background:linear-gradient(135deg,#6bd8cb 0%,#29a195 100%); }
+.accent-glow  { background:linear-gradient(135deg,#ffb690 0%,#ec6a06 100%); }
+
+/* ── Course cards ── */
+.course-card {
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+  cursor: pointer;
+}
+.course-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 40px 80px -20px rgba(0,0,0,.5);
+}
+.course-card .emoji-wrap { transition: transform .5s ease; }
+.course-card:hover .emoji-wrap { transform: scale(1.12); }
+
+/* ── Filter pills ── */
+.filter-pill {
+  padding: .45rem 1.25rem; border-radius: .75rem;
+  font-family:'Tajawal',sans-serif; font-weight:700; font-size:.9rem;
+  border: 1px solid rgba(61,73,71,.3);
+  background: #222a3d; color: rgba(218,226,253,.6);
+  cursor: pointer; transition: all .2s ease;
+}
+.filter-pill:hover { background:rgba(107,216,203,.08); color:#6bd8cb; border-color:rgba(107,216,203,.3); }
+.filter-pill.active {
+  background: #6bd8cb; color: #003732;
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(107,216,203,.3);
+}
+
+/* ── Card fade-in ── */
+.card-appear { animation: cardAppear .4s ease forwards; opacity: 0; }
+@keyframes cardAppear { from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);} }

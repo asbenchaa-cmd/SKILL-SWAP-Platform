@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html class="dark" dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Skill Swap | الدورات</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Cairo:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-background":"#dae2fd","secondary":"#ffb690","surface-container-lowest":"#060e20","inverse-primary":"#006a61","secondary-fixed":"#ffdbca","surface-tint":"#6bd8cb","tertiary-fixed-dim":"#ffb59a","surface-dim":"#0b1326","tertiary-fixed":"#ffdbce","surface":"#0b1326","error":"#ffb4ab","background":"#0b1326","surface-bright":"#31394d","surface-container-low":"#131b2e","surface-container-high":"#222a3d","on-error-container":"#ffdad6","inverse-surface":"#dae2fd","on-primary-container":"#00302b","tertiary":"#ffb59a","surface-container-highest":"#2d3449","on-tertiary-fixed":"#370e00","on-surface-variant":"#bcc9c6","on-secondary-container":"#4a1c00","on-secondary-fixed-variant":"#783200","on-primary":"#003732","tertiary-container":"#d27956","primary-container":"#29a195","error-container":"#93000a","surface-container":"#171f33","secondary-fixed-dim":"#ffb690","primary-fixed-dim":"#6bd8cb","on-secondary":"#552100","outline-variant":"#3d4947","primary":"#6bd8cb","on-secondary-fixed":"#341100","on-tertiary":"#591c02","on-primary-fixed":"#00201d","outline":"#879391","on-tertiary-container":"#4f1700","on-primary-fixed-variant":"#005049","inverse-on-surface":"#283044","primary-fixed":"#89f5e7","on-surface":"#dae2fd","secondary-container":"#ec6a06","on-error":"#690005","surface-variant":"#2d3449","on-tertiary-fixed-variant":"#773215"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"1.5rem",full:"9999px"},fontFamily:{headline:["Tajawal","sans-serif"],body:["Cairo","sans-serif"],label:["Cairo","sans-serif"]}}}}
+</script>
+<link rel="stylesheet" href="shared.css"/>
+<link rel="stylesheet" href="style-courses.css"/>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen" data-page="courses">
+<nav id="ss-header"></nav>
+
+<main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+  <!-- Hero Header -->
+  <header class="mb-16 text-center">
+    <h1 class="text-5xl md:text-6xl font-black font-headline mb-6 tracking-tight">
+      <span data-ar="اكتشف " data-fr="Découvrez ">اكتشف </span><span class="bg-gradient-to-l from-primary to-primary-container bg-clip-text text-transparent" data-ar="آفاقاً جديدة" data-fr="de nouveaux horizons">آفاقاً جديدة</span><span data-ar=" للمعرفة" data-fr=" de connaissances"> للمعرفة</span>
+    </h1>
+    <p class="text-on-surface-variant text-lg max-w-2xl mx-auto mb-10 leading-relaxed" data-ar="انضم إلى نخبة المتعلمين في الجزائر وطور مهاراتك مع دورات تدريبية مصممة خصيصاً لسوق العمل الحديث." data-fr="Rejoignez l'élite des apprenants en Algérie et développez vos compétences avec des formations conçues pour le marché du travail moderne.">انضم إلى نخبة المتعلمين في الجزائر وطور مهاراتك مع دورات تدريبية مصممة خصيصاً لسوق العمل الحديث.</p>
+    <!-- Search -->
+    <div class="max-w-3xl mx-auto relative group">
+      <div class="absolute inset-0 bg-primary/20 blur-2xl rounded-full opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
+      <div class="relative flex items-center bg-surface-container-high rounded-full p-2 border border-outline-variant/20 shadow-2xl focus-within:border-primary/40 transition-colors">
+        <span class="material-symbols-outlined mr-4 text-on-surface-variant">search</span>
+        <input id="search-input" class="w-full bg-transparent border-none focus:ring-0 text-on-surface py-3 px-2 text-right placeholder:text-on-surface-variant/50 focus:outline-none" type="text" data-ar-placeholder="ابحث عن دورتك القادمة (برمجة، تصميم، لغات...)" data-fr-placeholder="Recherchez votre prochaine formation (dev, design, langues...)"/>
+        <button id="search-btn" class="maghreb-glow text-on-primary-container px-8 py-3 rounded-full font-bold font-headline hover:opacity-90 transition-opacity"><span data-ar="بحث" data-fr="Chercher">بحث</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Category Filters -->
+  <div class="flex flex-wrap justify-center gap-3 mb-16" id="filter-container">
+    <!-- injected by JS -->
+  </div>
+
+  <!-- Course Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="courses-grid">
+    <!-- injected by JS -->
+  </div>
+
+  <!-- Load More -->
+  <div class="mt-16 text-center">
+    <button id="load-more-btn" class="px-12 py-4 rounded-full border border-primary text-primary font-bold hover:bg-primary/10 transition-all">
+      <span data-ar="تحميل المزيد من الدورات" data-fr="Charger plus de cours">تحميل المزيد من الدورات</span>
+    </button>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="w-full pt-16 pb-8 px-8 bg-[#131b2e] border-t border-outline-variant/5">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-12 text-right w-full max-w-7xl mx-auto">
+    <div class="col-span-1 md:col-span-2"><div class="text-xl font-bold text-[#dae2fd] mb-4 font-headline">SKILL SWAP</div><p class="text-[#dae2fd]/60 leading-relaxed font-body mb-6" data-ar="منصة تعليمية تهدف إلى تمكين الكفاءات الجزائرية من خلال محتوى تعليمي راقٍ وبأحدث التقنيات العالمية." data-fr="Plateforme éducative visant à autonomiser les compétences algériennes.">منصة تعليمية تهدف إلى تمكين الكفاءات الجزائرية.</p></div>
+    <div><h4 class="text-on-background font-bold mb-6 font-headline" data-ar="روابط سريعة" data-fr="Liens rapides">روابط سريعة</h4><ul class="space-y-4 text-[#dae2fd]/60 font-body"><li><a class="hover:text-[#6bd8cb] transition-colors" href="index.html" data-ar="الرئيسية" data-fr="Accueil">الرئيسية</a></li><li><a class="hover:text-[#6bd8cb] transition-colors" href="pricing.html" data-ar="الأسعار" data-fr="Tarifs">الأسعار</a></li><li><a class="hover:text-[#6bd8cb] transition-colors" href="ai.html" data-ar="AI Tutor" data-fr="IA Tuteur">AI Tutor</a></li></ul></div>
+    <div><h4 class="text-on-background font-bold mb-6 font-headline" data-ar="التصنيفات" data-fr="Catégories">التصنيفات</h4><ul class="space-y-4 text-[#dae2fd]/60 font-body"><li><a class="hover:text-[#6bd8cb] transition-colors" href="#" data-ar="تطوير الويب" data-fr="Développement Web">تطوير الويب</a></li><li><a class="hover:text-[#6bd8cb] transition-colors" href="#" data-ar="الذكاء الاصطناعي" data-fr="Intelligence Artificielle">الذكاء الاصطناعي</a></li><li><a class="hover:text-[#6bd8cb] transition-colors" href="#" data-ar="إدارة الأعمال" data-fr="Gestion">إدارة الأعمال</a></li></ul></div>
+  </div>
+  <div class="mt-16 pt-8 border-t border-outline-variant/10 text-center text-[#dae2fd]/40 text-sm font-body">© 2024 SKILL SWAP. Designed for the Algerian intellectual spirit.</div>
+</footer>
+
+<script src="shared.js"></script>
+<script src="script-courses.js"></script>
+</body>
+</html>

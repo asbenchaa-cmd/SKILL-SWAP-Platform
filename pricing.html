@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html class="dark" dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Skill Swap | الأسعار</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Cairo:wght@300;400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-background":"#dae2fd","secondary":"#ffb690","surface-container-lowest":"#060e20","inverse-primary":"#006a61","surface-tint":"#6bd8cb","surface-dim":"#0b1326","surface":"#0b1326","background":"#0b1326","surface-bright":"#31394d","surface-container-low":"#131b2e","surface-container-high":"#222a3d","inverse-surface":"#dae2fd","on-primary-container":"#00302b","tertiary":"#ffb59a","surface-container-highest":"#2d3449","on-surface-variant":"#bcc9c6","on-primary":"#003732","tertiary-container":"#d27956","primary-container":"#29a195","surface-container":"#171f33","primary-fixed-dim":"#6bd8cb","on-secondary":"#552100","outline-variant":"#3d4947","primary":"#6bd8cb","outline":"#879391","on-primary-fixed-variant":"#005049","inverse-on-surface":"#283044","primary-fixed":"#89f5e7","on-surface":"#dae2fd","secondary-container":"#ec6a06","surface-variant":"#2d3449"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},fontFamily:{headline:["Tajawal","sans-serif"],body:["Cairo","sans-serif"],label:["Cairo","sans-serif"]}}}}
+</script>
+<link rel="stylesheet" href="shared.css"/>
+<link rel="stylesheet" href="style-pricing.css"/>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary" data-page="pricing">
+<nav id="ss-header"></nav>
+
+<main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+  <!-- Hero -->
+  <header class="text-center mb-20 relative">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -z-10"></div>
+    <h1 class="font-headline font-black text-5xl md:text-7xl mb-6 tracking-tight leading-tight">
+      <span data-ar="استثمر في " data-fr="Investissez dans ">استثمر في </span>
+      <span class="bg-gradient-to-l from-primary to-primary-container bg-clip-text text-transparent" data-ar="مهاراتك" data-fr="vos compétences">مهاراتك</span>
+    </h1>
+    <p class="text-on-surface-variant text-xl max-w-2xl mx-auto mb-12" data-ar="اختر الخطة التي تناسب طموحاتك المهنية وابدأ رحلة التعلم مع أفضل الخبراء في الجزائر." data-fr="Choisissez le plan qui correspond à vos ambitions professionnelles et commencez votre parcours.">اختر الخطة التي تناسب طموحاتك المهنية وابدأ رحلة التعلم مع أفضل الخبراء في الجزائر.</p>
+
+    <!-- Billing Toggle -->
+    <div class="flex items-center justify-center gap-4 mb-16" id="billing-toggle-wrap">
+      <span id="label-monthly" class="text-on-surface font-semibold text-lg billing-label-active" data-ar="شهري" data-fr="Mensuel">شهري</span>
+      <button id="billing-toggle" class="billing-switch" role="switch" aria-checked="false" aria-label="Toggle billing">
+        <span id="billing-knob" class="billing-knob"></span>
+      </button>
+      <div class="flex items-center gap-2">
+        <span id="label-yearly" class="text-on-surface/50 font-semibold text-lg" data-ar="سنوي" data-fr="Annuel">سنوي</span>
+        <span class="accent-glow text-on-secondary px-3 py-1 rounded-full text-xs font-bold" data-ar="خصم 20%" data-fr="-20%">خصم 20%</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Pricing Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-end mb-32">
+    <!-- Starter -->
+    <div class="pricing-card bg-surface-container-low p-8 rounded-xl border border-outline-variant/10">
+      <div class="mb-8">
+        <h3 class="font-headline text-2xl font-bold mb-2" data-ar="Starter" data-fr="Débutant">Starter</h3>
+        <div class="flex items-baseline gap-2">
+          <span class="text-4xl font-black price-display" data-monthly="0" data-yearly="0">0</span>
+          <span class="text-on-surface-variant billing-period" data-ar="دج/شهر" data-fr="DA/mois">دج/شهر</span>
+        </div>
+      </div>
+      <ul class="space-y-4 mb-10 plan-features">
+        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-xl">check_circle</span><span data-ar="5 دورات تدريبية" data-fr="5 cours de formation">5 دورات تدريبية</span></li>
+        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-xl">check_circle</span><span data-ar="تبادل خبرات (مرة/شهر)" data-fr="Échange (1×/mois)">تبادل خبرات (مرة/شهر)</span></li>
+        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-xl">check_circle</span><span data-ar="AI Tutor (20 رسالة/يوم)" data-fr="AI Tuteur (20 msg/jour)">AI Tutor (20 رسالة/يوم)</span></li>
+      </ul>
+      <button class="plan-btn plan-btn-outline" data-plan="Starter" data-ar="ابدأ مجاناً" data-fr="Commencer gratuitement">ابدأ مجاناً</button>
+    </div>
+
+    <!-- Pro (Featured) -->
+    <div class="pricing-card pricing-featured bg-surface-container-high p-10 rounded-xl border-2 border-primary shadow-[0_20px_50px_rgba(11,19,38,.8)] scale-105 z-10 relative">
+      <div class="absolute top-0 right-0 p-4">
+        <span class="accent-glow text-on-secondary-container px-4 py-1 rounded-full text-xs font-black uppercase" data-ar="الأكثر شعبية" data-fr="Le plus populaire">الأكثر شعبية</span>
+      </div>
+      <div class="mb-8">
+        <h3 class="font-headline text-3xl font-bold mb-2">Pro</h3>
+        <div class="flex items-baseline gap-2">
+          <span class="text-5xl font-black text-primary price-display" data-monthly="1500" data-yearly="1200">1,500</span>
+          <span class="text-on-surface-variant billing-period" data-ar="دج/شهر" data-fr="DA/mois">دج/شهر</span>
+        </div>
+      </div>
+      <ul class="space-y-5 mb-12 plan-features">
+        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-2xl">verified</span><span class="font-bold" data-ar="دورات غير محدودة" data-fr="Cours illimités">دورات غير محدودة</span></li>
+        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-2xl">verified</span><span data-ar="10 جلسات VIP" data-fr="10 sessions VIP">10 جلسات VIP</span></li>
+        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-2xl">verified</span><span class="font-bold" data-ar="AI Tutor غير محدود" data-fr="AI Tuteur illimité">AI Tutor غير محدود</span></li>
+        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-2xl">verified</span><span data-ar="شهادات معتمدة" data-fr="Certificats reconnus">شهادات معتمدة</span></li>
+      </ul>
+      <button class="plan-btn plan-btn-primary" data-plan="Pro" data-ar="اشترك الآن" data-fr="S'abonner maintenant">اشترك الآن</button>
+    </div>
+
+    <!-- Elite -->
+    <div class="pricing-card bg-surface-container-low p-8 rounded-xl border border-outline-variant/10">
+      <div class="mb-8">
+        <h3 class="font-headline text-2xl font-bold mb-2" data-ar="Elite" data-fr="Élite">Elite</h3>
+        <div class="flex items-baseline gap-2">
+          <span class="text-4xl font-black price-display" data-monthly="3500" data-yearly="2800">3,500</span>
+          <span class="text-on-surface-variant billing-period" data-ar="دج/شهر" data-fr="DA/mois">دج/شهر</span>
+        </div>
+      </div>
+      <ul class="space-y-4 mb-10 plan-features">
+        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-xl">star</span><span data-ar="VIP غير محدود" data-fr="VIP illimité">VIP غير محدود</span></li>
+        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-xl">star</span><span class="font-bold" data-ar="مدرب شخصي مخصص" data-fr="Coach personnel dédié">مدرب شخصي مخصص</span></li>
+        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-xl">star</span><span data-ar="ورش عمل شهرية حصرية" data-fr="Ateliers mensuels exclusifs">ورش عمل شهرية حصرية</span></li>
+        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-xl">star</span><span data-ar="دخول للمكتبة الفيزيائية" data-fr="Accès à la bibliothèque physique">دخول للمكتبة الفيزيائية</span></li>
+      </ul>
+      <button class="plan-btn plan-btn-outline" data-plan="Elite" data-ar="اختر خطة النخبة" data-fr="Choisir l'élite">اختر خطة النخبة</button>
+    </div>
+  </div>
+
+  <!-- Payment Methods -->
+  <section class="mt-20">
+    <div class="text-center mb-16">
+      <h2 class="font-headline text-4xl font-black mb-4" data-ar="طرق الدفع المتاحة" data-fr="Moyens de paiement disponibles">طرق الدفع المتاحة</h2>
+      <div class="flex items-center justify-center gap-2 text-[#6bd8cb]">
+        <span class="material-symbols-outlined">verified_user</span>
+        <p class="font-bold" data-ar="جميع المعاملات مشفرة وآمنة 100%" data-fr="Toutes les transactions sont cryptées et sécurisées à 100%">جميع المعاملات مشفرة وآمنة 100%</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="payment-methods-grid">
+      <!-- Injected by JS -->
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="w-full pt-16 pb-8 px-8 bg-[#131b2e]">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-12 text-right w-full max-w-7xl mx-auto">
+    <div class="md:col-span-1"><div class="text-xl font-bold text-[#dae2fd] mb-4 font-headline">SkillSwap</div><p class="text-[#dae2fd]/60 leading-relaxed font-body text-sm" data-ar="المنصة الأولى في الجزائر لتبادل الخبرات والمهارات الاحترافية بطابع عصري." data-fr="La première plateforme en Algérie pour l'échange d'expertises professionnelles.">المنصة الأولى في الجزائر لتبادل الخبرات والمهارات الاحترافية بطابع عصري.</p></div>
+    <div><h5 class="text-[#6bd8cb] font-bold mb-6 font-headline" data-ar="الوجهات" data-fr="Destinations">الوجهات</h5><ul class="space-y-3"><li><a class="text-[#dae2fd]/60 hover:text-[#6bd8cb] transition-colors" href="#">Oran</a></li><li><a class="text-[#dae2fd]/60 hover:text-[#6bd8cb] transition-colors" href="#">Algiers</a></li><li><a class="text-[#dae2fd]/60 hover:text-[#6bd8cb] transition-colors" href="#">Constantine</a></li></ul></div>
+    <div><h5 class="text-[#6bd8cb] font-bold mb-6 font-headline" data-ar="التصنيفات" data-fr="Catégories">التصنيفات</h5><ul class="space-y-3"><li><a class="text-[#dae2fd]/60 hover:text-[#6bd8cb] transition-colors" href="courses.html">Graphic Design</a></li><li><a class="text-[#dae2fd]/60 hover:text-[#6bd8cb] transition-colors" href="courses.html">Development</a></li><li><a class="text-[#dae2fd]/60 hover:text-[#6bd8cb] transition-colors" href="courses.html">Business</a></li></ul></div>
+    <div><h5 class="text-[#6bd8cb] font-bold mb-6 font-headline" data-ar="الدعم" data-fr="Support">الدعم</h5><ul class="space-y-3"><li><a class="text-[#dae2fd]/60 hover:text-[#6bd8cb] transition-colors" href="#" data-ar="سياسة الخصوصية" data-fr="Politique de confidentialité">سياسة الخصوصية</a></li><li><a class="text-[#dae2fd]/60 hover:text-[#6bd8cb] transition-colors" href="#" data-ar="شروط الاستخدام" data-fr="Conditions d'utilisation">شروط الاستخدام</a></li></ul></div>
+  </div>
+  <div class="mt-16 pt-8 border-t border-outline-variant/10 text-center text-[#dae2fd]/40 text-sm">© 2024 SkillSwap. Designed for the Algerian intellectual spirit.</div>
+</footer>
+
+<script src="shared.js"></script>
+<script src="script-pricing.js"></script>
+</body>
+</html>

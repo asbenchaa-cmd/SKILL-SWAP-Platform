@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html class="dark" dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillSwap | أمين — AI Tutor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Cairo:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-background":"#dae2fd","secondary":"#ffb690","surface-container-lowest":"#060e20","inverse-primary":"#006a61","surface-tint":"#6bd8cb","surface-dim":"#0b1326","surface":"#0b1326","background":"#0b1326","surface-bright":"#31394d","surface-container-low":"#131b2e","surface-container-high":"#222a3d","inverse-surface":"#dae2fd","on-primary-container":"#00302b","tertiary":"#ffb59a","surface-container-highest":"#2d3449","on-surface-variant":"#bcc9c6","on-primary":"#003732","primary-container":"#29a195","surface-container":"#171f33","primary-fixed-dim":"#6bd8cb","on-secondary":"#552100","outline-variant":"#3d4947","primary":"#6bd8cb","outline":"#879391","inverse-on-surface":"#283044","primary-fixed":"#89f5e7","on-surface":"#dae2fd","secondary-container":"#ec6a06","surface-variant":"#2d3449"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},fontFamily:{headline:["Tajawal","sans-serif"],body:["Cairo","sans-serif"],label:["Cairo","sans-serif"]}}}}
+</script>
+<link rel="stylesheet" href="shared.css"/>
+<link rel="stylesheet" href="style-ai.css"/>
+</head>
+<body class="bg-background text-on-background font-body h-screen flex flex-col overflow-hidden" data-page="ai">
+<nav id="ss-header"></nav>
+
+<main class="flex-grow pt-[72px] flex overflow-hidden">
+  <!-- LEFT SIDEBAR -->
+  <aside class="w-80 bg-surface-container-low flex-col border-l border-outline-variant/15 hidden lg:flex" id="ai-sidebar">
+    <div class="p-6 flex flex-col gap-8 h-full overflow-y-auto">
+      <!-- AI Identity -->
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl maghreb-glow flex items-center justify-center">
+            <span class="material-symbols-outlined text-on-primary-container text-3xl" style="font-variation-settings:'FILL' 1">smart_toy</span>
+          </div>
+          <div>
+            <h2 class="font-headline font-bold text-xl leading-none" id="sidebar-title" data-ar="مساعد الذكاء" data-fr="Assistant IA">مساعد الذكاء</h2>
+            <span class="text-xs text-primary/80 font-label" id="sidebar-status" data-ar="نشط الآن" data-fr="En ligne">نشط الآن</span>
+          </div>
+        </div>
+        <button id="new-chat-btn" class="w-full py-3 rounded-xl maghreb-glow text-on-primary-container font-bold flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-95">
+          <span class="material-symbols-outlined text-sm">add</span>
+          <span id="new-chat-label" data-ar="محادثة جديدة" data-fr="Nouvelle conversation">محادثة جديدة</span>
+        </button>
+      </div>
+
+      <!-- Stats -->
+      <div class="bg-surface/50 rounded-xl p-4 grid grid-cols-2 gap-3">
+        <div class="bg-surface/50 p-2 rounded-lg text-center">
+          <span id="ss-msg-count" class="block text-xl font-bold text-primary">0</span>
+          <span class="text-[10px] text-on-surface-variant" id="stat-msgs" data-ar="رسالة اليوم" data-fr="messages aujourd'hui">رسالة اليوم</span>
+        </div>
+        <div class="bg-surface/50 p-2 rounded-lg text-center">
+          <span class="block text-xl font-bold text-primary">3</span>
+          <span class="text-[10px] text-on-surface-variant" id="stat-skills" data-ar="مهارات مكتسبة" data-fr="compétences acquises">مهارات مكتسبة</span>
+        </div>
+      </div>
+
+      <!-- Suggested Topics -->
+      <div class="flex flex-col gap-4">
+        <h3 class="text-sm font-bold text-on-surface/80 flex items-center gap-2">
+          <span class="material-symbols-outlined text-sm">history</span>
+          <span id="topics-label" data-ar="مواضيع مقترحة لك" data-fr="Sujets suggérés pour vous">مواضيع مقترحة لك</span>
+        </h3>
+        <div class="space-y-2" id="suggested-topics">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+
+      <!-- Skills in progress -->
+      <div class="flex flex-col gap-4 mt-auto">
+        <h3 class="text-sm font-bold text-on-surface/80" id="skills-label" data-ar="مهارات قيد التطوير" data-fr="Compétences en cours">مهارات قيد التطوير</h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1 bg-surface-variant rounded-full text-xs border border-outline-variant/20">Python</span>
+          <span class="px-3 py-1 bg-surface-variant rounded-full text-xs border border-outline-variant/20">UI/UX</span>
+          <span class="px-3 py-1 bg-surface-variant rounded-full text-xs border border-outline-variant/20">SEO</span>
+          <span class="px-3 py-1 bg-surface-variant rounded-full text-xs border border-outline-variant/20">Marketing</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- RIGHT: CHAT -->
+  <section class="flex-grow flex flex-col bg-surface overflow-hidden relative">
+    <!-- Chat Header -->
+    <header class="p-6 maghreb-glow flex items-center justify-between shadow-lg z-10">
+      <div class="flex items-center gap-4">
+        <div class="relative">
+          <div class="w-12 h-12 rounded-full border-2 border-on-primary-container overflow-hidden bg-surface-container-lowest flex items-center justify-center">
+            <span class="material-symbols-outlined text-on-primary-container text-2xl" style="font-variation-settings:'FILL' 1">smart_toy</span>
+          </div>
+          <span class="absolute bottom-0 left-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full animate-pulse"></span>
+        </div>
+        <div>
+          <h1 class="font-headline font-black text-xl text-on-primary-container" id="chat-title" data-ar="أمين: مرشدك الذكي" data-fr="Amin : Ton guide intelligent">أمين: مرشدك الذكي</h1>
+          <p class="text-xs text-on-primary-container/70" id="chat-subtitle" data-ar="متخصص في المسارات المهنية الجزائرية" data-fr="Spécialiste des parcours professionnels algériens">متخصص في المسارات المهنية الجزائرية</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="export-btn" class="p-2 hover:bg-white/10 rounded-full transition-colors text-on-primary-container" title="Export">
+          <span class="material-symbols-outlined">export_notes</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Messages -->
+    <div class="flex-grow overflow-y-auto p-6 space-y-6 flex flex-col" id="ss-chat-messages"></div>
+
+    <!-- Footer Input -->
+    <footer class="p-6 bg-surface-container-low/50 border-t border-outline-variant/10">
+      <!-- Quick Prompts -->
+      <div class="flex items-center gap-3 overflow-x-auto pb-4 no-scrollbar mb-2" id="quick-prompts-row">
+        <!-- injected by JS -->
+      </div>
+      <!-- Textarea -->
+      <div class="relative bg-surface-container-highest rounded-2xl p-4 shadow-inner flex items-end gap-3 border border-outline-variant/20 focus-within:border-primary/50 transition-all">
+        <textarea id="ss-chat-input" class="flex-grow bg-transparent border-none focus:ring-0 text-on-surface resize-none py-2 px-0 text-lg leading-relaxed max-h-32 focus:outline-none no-scrollbar" rows="1" id="chat-placeholder"></textarea>
+        <div class="flex items-center gap-2">
+          <button id="ss-send-btn" class="maghreb-glow w-12 h-12 rounded-xl flex items-center justify-center shadow-lg active:scale-95 transition-transform hover:brightness-110">
+            <span class="material-symbols-outlined text-on-primary-container -rotate-45" style="font-variation-settings:'FILL' 1">send</span>
+          </button>
+        </div>
+      </div>
+      <p class="text-center text-[10px] text-on-surface-variant mt-3" id="ai-disclaimer" data-ar="قد يرتكب الذكاء الاصطناعي بعض الأخطاء. نوصي دائماً بالتأكد من المعلومات الهامة." data-fr="L'IA peut faire des erreurs. Nous recommandons toujours de vérifier les informations importantes.">قد يرتكب الذكاء الاصطناعي بعض الأخطاء. نوصي دائماً بالتأكد من المعلومات الهامة.</p>
+    </footer>
+
+    <!-- Background decorations -->
+    <div class="absolute top-1/4 -right-24 w-96 h-96 bg-primary/5 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
+    <div class="absolute bottom-1/4 -left-24 w-96 h-96 bg-secondary/5 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
+  </section>
+</main>
+
+<script src="shared.js"></script>
+<script src="script-ai.js"></script>
+</body>
+</html>
