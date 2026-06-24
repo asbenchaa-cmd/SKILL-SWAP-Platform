@@ -392,9 +392,11 @@ SS._togglePwd = function(id, btn) {
   if (icon) icon.textContent = isHidden ? 'visibility_off' : 'visibility';
 };
 
-SS._handleSignup = function(e) {
+SS._handleSignup = async function(e) {
   e.preventDefault();
+
   const T = SS.T();
+
   const fname = document.getElementById('ss-fname')?.value.trim();
   const lname = document.getElementById('ss-lname')?.value.trim();
   const email = document.getElementById('ss-email')?.value.trim();
@@ -407,14 +409,60 @@ SS._handleSignup = function(e) {
   if (!password || password.length < 8) return SS.toast(T.err_pass, 'error');
   if (!terms) return SS.toast(T.err_terms, 'error');
 
+  if (!window.FB) {
+    console.error("Firebase is not loaded yet.");
+    return SS.toast("Firebase n'est pas encore chargé", "error");
+  }
+
   const btn = document.getElementById('ss-btn-signup');
-  btn.disabled = true; btn.textContent = '...';
-  setTimeout(() => {
-    SS.saveUser({ fname, lname, email, skill, provider: 'email' });
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  try {
+    const cred = await FB.createUserWithEmailAndPassword(FB.auth, email, password);
+    const user = cred.user;
+
+    const userProfile = {
+      uid: user.uid,
+      fname: fname,
+      lname: lname,
+      name: fname + " " + lname,
+      email: email,
+      skill: skill,
+      provider: "email",
+      city: "",
+      bio: "",
+      offersAr: skill || "",
+      wantsAr: "",
+      rating: 0,
+      createdAt: FB.serverTimestamp()
+    };
+
+    await FB.setDoc(FB.doc(FB.db, "users", user.uid), userProfile);
+
+    SS.saveUser(userProfile);
     SS.closeRegModal();
     SS.toast(T.toast_welcome(fname));
-    btn.disabled = false; btn.textContent = T.btn_signup;
-  }, 700);
+
+  } catch (error) {
+    console.error("Signup error:", error);
+
+    let message = "Erreur lors de la création du compte.";
+
+    if (error.code === "auth/email-already-in-use") {
+      message = "Cet email est déjà utilisé.";
+    } else if (error.code === "auth/weak-password") {
+      message = "Le mot de passe est trop faible.";
+    } else if (error.code === "auth/invalid-email") {
+      message = "Email invalide.";
+    }
+
+    SS.toast(message, "error");
+
+  } finally {
+    btn.disabled = false;
+    btn.textContent = T.btn_signup;
+  }
 };
 
 SS._handleLogin = function(e) {
