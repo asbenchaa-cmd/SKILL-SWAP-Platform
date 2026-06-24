@@ -546,15 +546,82 @@ SS._handleLogin = async function(e) {
   }
 };
 
-SS._socialAuth = function(provider) {
+SS._socialAuth = async function(provider) {
   const T = SS.T();
-  const names = { Google: 'أحمد', Facebook: 'سارة' };
-  const name = names[provider] || provider;
-  setTimeout(() => {
-    SS.saveUser({ fname: name, email: `${name.toLowerCase()}@${provider.toLowerCase()}.com`, provider });
+
+  if (!window.FB) {
+    console.error("Firebase is not loaded yet.");
+    return SS.toast("Firebase n'est pas encore chargé", "error");
+  }
+
+  if (provider !== "Google") {
+    return SS.toast("Facebook login n'est pas encore activé.", "error");
+  }
+
+  try {
+    const googleProvider = new FB.GoogleAuthProvider();
+
+    const cred = await FB.signInWithPopup(FB.auth, googleProvider);
+    const user = cred.user;
+
+    const userRef = FB.doc(FB.db, "users", user.uid);
+    const userSnap = await FB.getDoc(userRef);
+
+    let userProfile;
+
+    if (userSnap.exists()) {
+      userProfile = userSnap.data();
+    } else {
+      const displayName = user.displayName || user.email.split("@")[0];
+      const parts = displayName.split(" ");
+
+      userProfile = {
+        uid: user.uid,
+        fname: parts[0] || displayName,
+        lname: parts.slice(1).join(" ") || "",
+        name: displayName,
+        email: user.email,
+        photoURL: user.photoURL || "",
+        provider: "google",
+        city: "",
+        bio: "",
+        skill: "",
+        offersAr: "",
+        offersFr: "",
+        wantsAr: "",
+        wantsFr: "",
+        rating: 0,
+        createdAt: FB.serverTimestamp()
+      };
+
+      await FB.setDoc(userRef, userProfile);
+    }
+
+    SS.saveUser(userProfile);
     SS.closeRegModal();
-    SS.toast(T.toast_social(provider, name));
-  }, 600);
+
+    const displayName =
+      userProfile.fname ||
+      userProfile.name ||
+      user.email.split("@")[0];
+
+    SS.toast(T.toast_social("Google", displayName));
+
+  } catch (error) {
+    console.error("Google login error:", error);
+
+    let message = "Erreur lors de la connexion avec Google.";
+
+    if (error.code === "auth/popup-closed-by-user") {
+      message = "Connexion Google annulée.";
+    } else if (error.code === "auth/unauthorized-domain") {
+      message = "Domaine non autorisé dans Firebase Authentication.";
+    } else if (error.code === "auth/popup-blocked") {
+      message = "Le navigateur a bloqué la fenêtre Google.";
+    }
+
+    SS.toast(message, "error");
+  }
 };
 
 SS._forgotPassword = function() {
