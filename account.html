@@ -47,6 +47,14 @@
         <label class="text-sm font-bold text-on-surface-variant">نبذة عني</label>
         <textarea id="edit-bio" rows="3" class="bg-surface-container-high border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-primary focus:border-primary text-right resize-none">مصمم واجهات بخبرة تزيد عن 5 سنوات في السوق الجزائري والعربي.</textarea>
       </div>
+      <div class="flex flex-col gap-2 text-right">
+        <label class="text-sm font-bold text-on-surface-variant">أقدم مهارة في</label>
+        <input id="edit-skill" type="text" placeholder="مثال: Python, UI Design, Marketing..." class="bg-surface-container-high border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-primary focus:border-primary text-right"/>
+      </div>
+      <div class="flex flex-col gap-2 text-right">
+        <label class="text-sm font-bold text-on-surface-variant">أريد تعلم</label>
+        <input id="edit-wants" type="text" placeholder="مثال: English, React, Business..." class="bg-surface-container-high border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-primary focus:border-primary text-right"/>
+      </div>
       <button onclick="saveProfile()" class="w-full py-4 rounded-full maghreb-glow text-on-primary-container font-headline font-black text-lg hover:scale-105 transition-transform mt-4">
         حفظ التغييرات
       </button>
@@ -143,20 +151,22 @@
         <!-- Skills Card -->
         <div class="bg-surface-container-low rounded-xl p-6">
           <h3 class="text-lg font-bold mb-6 font-headline">المهارات</h3>
-          <div class="mb-8">
-            <p class="text-xs font-bold text-primary mb-3">أقدم مهارات في:</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="bg-primary/10 text-primary px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2">تصميم UI <span class="bg-primary/20 px-1 rounded text-[10px]">خبير</span></span>
-              <span class="bg-primary/10 text-primary px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2">React.js <span class="bg-primary/20 px-1 rounded text-[10px]">متقدم</span></span>
-              <span class="bg-primary/10 text-primary px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2">Tailwind <span class="bg-primary/20 px-1 rounded text-[10px]">خبير</span></span>
+
+            <div class="mb-8">
+              <p class="text-xs font-bold text-primary mb-3">أقدم مهارة في:</p>
+              <div class="flex flex-wrap gap-2">
+                <span id="profile-offers" class="bg-primary/10 text-primary px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2">
+                  لم يحدد المهارة بعد
+                </span>
+              </div>
             </div>
-          </div>
-          <div>
-            <p class="text-xs font-bold text-secondary mb-3">أبحث عن تعلم:</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="bg-secondary/10 text-secondary px-3 py-1.5 rounded-lg text-xs font-bold">التسويق الرقمي</span>
-              <span class="bg-secondary/10 text-secondary px-3 py-1.5 rounded-lg text-xs font-bold">اللغة الألمانية</span>
-              <span class="bg-secondary/10 text-secondary px-3 py-1.5 rounded-lg text-xs font-bold">أساسيات AI</span>
+
+            <div>
+              <p class="text-xs font-bold text-secondary mb-3">أبحث عن تعلم:</p>
+              <div class="flex flex-wrap gap-2">
+                <span id="profile-wants" class="bg-secondary/10 text-secondary px-3 py-1.5 rounded-lg text-xs font-bold">
+                    لم يحدد بعد ما يريد تعلمه
+                </span>
             </div>
           </div>
         </div>
