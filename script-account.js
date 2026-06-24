@@ -58,6 +58,17 @@ function renderProfile(profile) {
     "Utilisateur";
 
   setText("profile-name", fullName);
+
+  // Titre de la section bio : عن + nom réel
+  setText("profile-about-title", "عن " + fullName);
+
+  // Sous-titre sous le nom
+  const headline = profile.skill
+    ? `يقدم مهارة: ${profile.skill}`
+    : "عضو في منصة SkillSwap";
+
+  setText("profile-headline", headline);
+
   setText("profile-city", profile.city || "غير محدد");
   setText("profile-bio", profile.bio || "لم يتم إضافة وصف بعد.");
 

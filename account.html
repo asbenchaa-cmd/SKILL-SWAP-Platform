@@ -37,15 +37,15 @@
     <div class="space-y-4">
       <div class="flex flex-col gap-2 text-right">
         <label class="text-sm font-bold text-on-surface-variant">الاسم الكامل</label>
-        <input id="edit-name" type="text" value="ياسين بن علي" class="bg-surface-container-high border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-primary focus:border-primary text-right"/>
+        <input id="edit-name" type="text" value="" class="bg-surface-container-high border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-primary focus:border-primary text-right"/>
       </div>
       <div class="flex flex-col gap-2 text-right">
         <label class="text-sm font-bold text-on-surface-variant">الولاية</label>
-        <input id="edit-city" type="text" value="وهران، الجزائر" class="bg-surface-container-high border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-primary focus:border-primary text-right"/>
+        <input id="edit-city" type="text" value="" class="bg-surface-container-high border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-primary focus:border-primary text-right"/>
       </div>
       <div class="flex flex-col gap-2 text-right">
         <label class="text-sm font-bold text-on-surface-variant">نبذة عني</label>
-        <textarea id="edit-bio" rows="3" class="bg-surface-container-high border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-primary focus:border-primary text-right resize-none">مصمم واجهات بخبرة تزيد عن 5 سنوات في السوق الجزائري والعربي.</textarea>
+        <textarea id="edit-bio" rows="3" class="bg-surface-container-high border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-primary focus:border-primary text-right resize-none"></textarea>
       </div>
       <div class="flex flex-col gap-2 text-right">
         <label class="text-sm font-bold text-on-surface-variant">أقدم مهارة في</label>
@@ -83,8 +83,8 @@
         <div class="flex-1 text-right md:mb-4">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 id="profile-name" class="text-3xl md:text-5xl font-black text-on-background mb-1 font-headline">ياسين بن علي</h1>
-              <p class="text-primary text-lg md:text-xl font-medium">مطور واجهات ومصمم تجربة مستخدم | متعلم للذكاء الاصطناعي</p>
+              <h1 id="profile-name" class="text-3xl md:text-5xl font-black text-on-background mb-1 font-headline">جاري تحميل الملف الشخصي...</h1>
+              <p id="profile-headline" class="text-primary text-lg md:text-xl font-medium">SkillSwap Member</p>
               <div class="flex flex-wrap gap-3 mt-4">
                 <span class="bg-surface-container-high px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-2">
                   <span class="material-symbols-outlined text-primary text-sm">location_on</span>
@@ -195,9 +195,9 @@
       <div class="flex-1 flex flex-col gap-8">
         <!-- Bio Section -->
         <div class="bg-surface-container-low p-8 rounded-xl">
-          <h3 class="text-xl font-black mb-4 font-headline">عن ياسين</h3>
+          <h3 id="profile-about-title" class="text-xl font-black mb-4 font-headline">عني</h3>
           <p id="profile-bio" class="text-on-surface-variant leading-relaxed font-medium">
-            مصمم واجهات بخبرة تزيد عن 5 سنوات في السوق الجزائري والعربي. شغوف بتمكين الشباب الجزائري من خلال مشاركة خبرتي في البرمجة الحديثة والتصميم. أؤمن أن "المجالس الرقمية" هي مستقبل التعليم، حيث نتبادل المعرفة كما نتبادل التحية في شوارع القصبة العريقة.
+            جاري تحميل النبذة الشخصية...
           </p>
         </div>
 
@@ -304,29 +304,14 @@
         <!-- Reviews Section -->
         <div class="bg-surface-container-low p-8 rounded-xl">
           <h3 class="text-xl font-black mb-6 font-headline">تقييمات المتعلمين</h3>
-          <div class="space-y-6">
-            <div class="bg-surface-container-high/50 p-6 rounded-xl review-card">
-              <div class="flex justify-between items-start mb-4">
-                <div class="flex gap-3">
-                  <div class="w-10 h-10 rounded-full overflow-hidden bg-primary-container/20">
-                    <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAT77VTadrAkARdYb-w69G9FwKNG_9ByEF1qiQbYzwh5R2Vv5Bm8brVyYcw_-G7XSYlPp5nj54X5TQ2SMfs3jwaPL9zU4kYU-z68qaHbTNKRrPXNXUFznCg12-zFfzNxRqFh0EFdnNvv_Y61SDFJwxc0Kn50O85aCnWBt1OfFTERnmXSQl-4_zN4CZX04SAJt-iLk2JLxztc0tlxKCwRq6X22_GaGRxC-HPydZTQKMCbLWqDkP7q5J7WTJxwrkgmH5e1oQMnGrFf3E" alt=""/>
-                  </div>
-                  <div>
-                    <p class="font-bold text-sm">آمال حداد</p>
-                    <p class="text-[10px] text-on-surface-variant">قبل أسبوعين</p>
-                  </div>
-                </div>
-                <div class="flex text-secondary">
-                  <span class="material-symbols-outlined text-xs" style="font-variation-settings:'FILL' 1;">star</span>
-                  <span class="material-symbols-outlined text-xs" style="font-variation-settings:'FILL' 1;">star</span>
-                  <span class="material-symbols-outlined text-xs" style="font-variation-settings:'FILL' 1;">star</span>
-                  <span class="material-symbols-outlined text-xs" style="font-variation-settings:'FILL' 1;">star</span>
-                  <span class="material-symbols-outlined text-xs" style="font-variation-settings:'FILL' 1;">star</span>
-                </div>
-              </div>
-              <p class="text-sm text-on-surface-variant italic">"ياسين معلم رائع. شرحه لأساسيات الـ UI كان مبسطاً وعملياً جداً. استفدت كثيراً من جلسة تبادل الخبرات."</p>
+
+           <div class="bg-surface-container-high/50 p-6 rounded-xl text-center">
+              <span class="material-symbols-outlined text-primary text-4xl mb-3">rate_review</span>
+                 <p class="text-on-surface-variant text-sm">
+                    لا توجد تقييمات لهذا المستخدم بعد.
+                 </p>
+             </div>
             </div>
-          </div>
         </div>
       </div>
     </div>
