@@ -122,10 +122,28 @@ SS.saveUser = function(user) {
   SS.updateNavAuth();
 };
 
-SS.logout = function() {
+SS.logout = async function() {
+  try {
+    if (window.FB && FB.auth) {
+      await FB.signOut(FB.auth);
+    }
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+
   SS.state.user = null;
   localStorage.removeItem('ss_user');
   SS.updateNavAuth();
+
+  SS.toast(
+    SS.state.lang === 'ar'
+      ? 'تم تسجيل الخروج بنجاح'
+      : 'Déconnexion réussie'
+  );
+
+  setTimeout(() => {
+    window.location.href = 'index.html';
+  }, 600);
 };
 
 SS.updateNavAuth = function() {
@@ -392,9 +410,11 @@ SS._togglePwd = function(id, btn) {
   if (icon) icon.textContent = isHidden ? 'visibility_off' : 'visibility';
 };
 
-SS._handleSignup = function(e) {
+SS._handleSignup = async function(e) {
   e.preventDefault();
+
   const T = SS.T();
+
   const fname = document.getElementById('ss-fname')?.value.trim();
   const lname = document.getElementById('ss-lname')?.value.trim();
   const email = document.getElementById('ss-email')?.value.trim();
@@ -407,43 +427,219 @@ SS._handleSignup = function(e) {
   if (!password || password.length < 8) return SS.toast(T.err_pass, 'error');
   if (!terms) return SS.toast(T.err_terms, 'error');
 
+  if (!window.FB) {
+    console.error("Firebase is not loaded yet.");
+    return SS.toast("Firebase n'est pas encore chargé", "error");
+  }
+
   const btn = document.getElementById('ss-btn-signup');
-  btn.disabled = true; btn.textContent = '...';
-  setTimeout(() => {
-    SS.saveUser({ fname, lname, email, skill, provider: 'email' });
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  try {
+    const cred = await FB.createUserWithEmailAndPassword(FB.auth, email, password);
+    const user = cred.user;
+
+    const userProfile = {
+      uid: user.uid,
+      fname: fname,
+      lname: lname,
+      name: fname + " " + lname,
+      email: email,
+      skill: skill,
+      provider: "email",
+      city: "",
+      bio: "",
+      offersAr: skill || "",
+      wantsAr: "",
+      rating: 0,
+      createdAt: FB.serverTimestamp()
+    };
+
+    await FB.setDoc(FB.doc(FB.db, "users", user.uid), userProfile);
+
+    SS.saveUser(userProfile);
     SS.closeRegModal();
     SS.toast(T.toast_welcome(fname));
-    btn.disabled = false; btn.textContent = T.btn_signup;
-  }, 700);
+
+  } catch (error) {
+    console.error("Signup error:", error);
+
+    let message = "Erreur lors de la création du compte.";
+
+    if (error.code === "auth/email-already-in-use") {
+      message = "Cet email est déjà utilisé.";
+    } else if (error.code === "auth/weak-password") {
+      message = "Le mot de passe est trop faible.";
+    } else if (error.code === "auth/invalid-email") {
+      message = "Email invalide.";
+    }
+
+    SS.toast(message, "error");
+
+  } finally {
+    btn.disabled = false;
+    btn.textContent = T.btn_signup;
+  }
 };
 
-SS._handleLogin = function(e) {
+SS._handleLogin = async function(e) {
   e.preventDefault();
+
   const T = SS.T();
   const email = document.getElementById('ss-login-email')?.value.trim();
   const password = document.getElementById('ss-login-password')?.value;
+
   if (!email || !password) return SS.toast(T.err_fields, 'error');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return SS.toast(T.err_email, 'error');
+
+  if (!window.FB) {
+    console.error("Firebase is not loaded yet.");
+    return SS.toast("Firebase n'est pas encore chargé", "error");
+  }
+
   const btn = document.getElementById('ss-btn-login');
-  btn.disabled = true; btn.textContent = '...';
-  setTimeout(() => {
-    const name = email.split('@')[0];
-    SS.saveUser({ fname: name, email, provider: 'email' });
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  try {
+    const cred = await FB.signInWithEmailAndPassword(FB.auth, email, password);
+    const user = cred.user;
+
+    const userRef = FB.doc(FB.db, "users", user.uid);
+    const userSnap = await FB.getDoc(userRef);
+
+    let userProfile;
+
+    if (userSnap.exists()) {
+      userProfile = userSnap.data();
+    } else {
+      // Sécurité : si le compte existe dans Authentication mais pas encore dans Firestore
+      const name = email.split('@')[0];
+
+      userProfile = {
+        uid: user.uid,
+        fname: name,
+        lname: "",
+        name: name,
+        email: email,
+        provider: "email",
+        city: "",
+        bio: "",
+        offersAr: "",
+        wantsAr: "",
+        rating: 0,
+        createdAt: FB.serverTimestamp()
+      };
+
+      await FB.setDoc(userRef, userProfile);
+    }
+
+    SS.saveUser(userProfile);
     SS.closeRegModal();
-    SS.toast(T.toast_login(name));
-    btn.disabled = false; btn.textContent = T.btn_login;
-  }, 700);
+
+    const displayName = userProfile.fname || userProfile.name || email.split('@')[0];
+    SS.toast(T.toast_login(displayName));
+
+  } catch (error) {
+    console.error("Login error:", error);
+
+    let message = "Erreur lors de la connexion.";
+
+    if (error.code === "auth/invalid-credential") {
+      message = "Email ou mot de passe incorrect.";
+    } else if (error.code === "auth/user-not-found") {
+      message = "Aucun compte trouvé avec cet email.";
+    } else if (error.code === "auth/wrong-password") {
+      message = "Mot de passe incorrect.";
+    } else if (error.code === "auth/invalid-email") {
+      message = "Email invalide.";
+    }
+
+    SS.toast(message, "error");
+
+  } finally {
+    btn.disabled = false;
+    btn.textContent = T.btn_login;
+  }
 };
 
-SS._socialAuth = function(provider) {
+SS._socialAuth = async function(provider) {
   const T = SS.T();
-  const names = { Google: 'أحمد', Facebook: 'سارة' };
-  const name = names[provider] || provider;
-  setTimeout(() => {
-    SS.saveUser({ fname: name, email: `${name.toLowerCase()}@${provider.toLowerCase()}.com`, provider });
+
+  if (!window.FB) {
+    console.error("Firebase is not loaded yet.");
+    return SS.toast("Firebase n'est pas encore chargé", "error");
+  }
+
+  if (provider !== "Google") {
+    return SS.toast("Facebook login n'est pas encore activé.", "error");
+  }
+
+  try {
+    const googleProvider = new FB.GoogleAuthProvider();
+
+    const cred = await FB.signInWithPopup(FB.auth, googleProvider);
+    const user = cred.user;
+
+    const userRef = FB.doc(FB.db, "users", user.uid);
+    const userSnap = await FB.getDoc(userRef);
+
+    let userProfile;
+
+    if (userSnap.exists()) {
+      userProfile = userSnap.data();
+    } else {
+      const displayName = user.displayName || user.email.split("@")[0];
+      const parts = displayName.split(" ");
+
+      userProfile = {
+        uid: user.uid,
+        fname: parts[0] || displayName,
+        lname: parts.slice(1).join(" ") || "",
+        name: displayName,
+        email: user.email,
+        photoURL: user.photoURL || "",
+        provider: "google",
+        city: "",
+        bio: "",
+        skill: "",
+        offersAr: "",
+        offersFr: "",
+        wantsAr: "",
+        wantsFr: "",
+        rating: 0,
+        createdAt: FB.serverTimestamp()
+      };
+
+      await FB.setDoc(userRef, userProfile);
+    }
+
+    SS.saveUser(userProfile);
     SS.closeRegModal();
-    SS.toast(T.toast_social(provider, name));
-  }, 600);
+
+    const displayName =
+      userProfile.fname ||
+      userProfile.name ||
+      user.email.split("@")[0];
+
+    SS.toast(T.toast_social("Google", displayName));
+
+  } catch (error) {
+    console.error("Google login error:", error);
+
+    let message = "Erreur lors de la connexion avec Google.";
+
+    if (error.code === "auth/popup-closed-by-user") {
+      message = "Connexion Google annulée.";
+    } else if (error.code === "auth/unauthorized-domain") {
+      message = "Domaine non autorisé dans Firebase Authentication.";
+    } else if (error.code === "auth/popup-blocked") {
+      message = "Le navigateur a bloqué la fenêtre Google.";
+    }
+
+    SS.toast(message, "error");
+  }
 };
 
 SS._forgotPassword = function() {
