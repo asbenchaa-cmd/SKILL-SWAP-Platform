@@ -122,10 +122,28 @@ SS.saveUser = function(user) {
   SS.updateNavAuth();
 };
 
-SS.logout = function() {
+SS.logout = async function() {
+  try {
+    if (window.FB && FB.auth) {
+      await FB.signOut(FB.auth);
+    }
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+
   SS.state.user = null;
   localStorage.removeItem('ss_user');
   SS.updateNavAuth();
+
+  SS.toast(
+    SS.state.lang === 'ar'
+      ? 'تم تسجيل الخروج بنجاح'
+      : 'Déconnexion réussie'
+  );
+
+  setTimeout(() => {
+    window.location.href = 'index.html';
+  }, 600);
 };
 
 SS.updateNavAuth = function() {

@@ -68,7 +68,7 @@
       <div class="flex flex-col md:flex-row items-end gap-6 pb-8">
         <div class="relative">
           <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-surface overflow-hidden shadow-2xl avatar-ring">
-            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDz5bftLJP9Z1b0EivgpZI-aluZbtrrGYGGqcb-mOVvO9u-wHKxyjmwUVv57iwOrcB-A7V4iZr8VwXpIB7x_JuKr74FNUzlG5XYYCpNxfOfOu6eNxFZOgDzM9FdrbHDZrkQx9Qoaj5YTcA-i1ovfyBxxuWHBb6HknTRDgT6aqLN0udlLzUDnznH6sYbscH-95lf55BlcU0xsxMk0gfjaURvrRMKcEHlt_pdw0Br94Q_lf_3OkxkaKPC9gj4WIwz2oT3ojDK9mvN3r8" alt="ياسين"/>
+            <img id="profile-avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDz5bftLJP9Z1b0EivgpZI-aluZbtrrGYGGqcb-mOVvO9u-wHKxyjmwUVv57iwOrcB-A7V4iZr8VwXpIB7x_JuKr74FNUzlG5XYYCpNxfOfOu6eNxFZOgDzM9FdrbHDZrkQx9Qoaj5YTcA-i1ovfyBxxuWHBb6HknTRDgT6aqLN0udlLzUDnznH6sYbscH-95lf55BlcU0xsxMk0gfjaURvrRMKcEHlt_pdw0Br94Q_lf_3OkxkaKPC9gj4WIwz2oT3ojDK9mvN3r8" alt="profile"/>
           </div>
           <div class="absolute bottom-2 right-2 w-6 h-6 bg-green-500 border-4 border-surface rounded-full shadow-lg animate-pulse"></div>
         </div>
@@ -94,8 +94,17 @@
               </div>
             </div>
             <div class="flex gap-3 h-fit">
-              <button onclick="shareProfile()" class="px-6 py-2.5 rounded-full border border-outline-variant bg-surface-container-high hover:bg-surface-bright transition-all font-bold text-sm">مشاركة الملف</button>
-              <button onclick="openEditModal()" class="maghreb-glow px-8 py-2.5 rounded-full text-on-primary-container font-black text-sm shadow-xl shadow-primary/20 hover:scale-105 transition-transform">تعديل الملف الشخصي</button>
+              <button onclick="shareProfile()" class="px-6 py-2.5 rounded-full border border-outline-variant bg-surface-container-high hover:bg-surface-bright transition-all font-bold text-sm">
+               مشاركة الملف
+              </button>
+
+              <button onclick="openEditModal()" class="maghreb-glow px-8 py-2.5 rounded-full text-on-primary-container font-black text-sm shadow-xl shadow-primary/20 hover:scale-105 transition-transform">
+              تعديل الملف الشخصي
+             </button>
+
+             <button onclick="SS.logout()" class="px-6 py-2.5 rounded-full border border-red-400/40 bg-red-500/10 text-red-300 hover:bg-red-500/20 transition-all font-bold text-sm">
+             تسجيل الخروج
+             </button>
             </div>
           </div>
         </div>
