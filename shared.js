@@ -465,22 +465,85 @@ SS._handleSignup = async function(e) {
   }
 };
 
-SS._handleLogin = function(e) {
+SS._handleLogin = async function(e) {
   e.preventDefault();
+
   const T = SS.T();
   const email = document.getElementById('ss-login-email')?.value.trim();
   const password = document.getElementById('ss-login-password')?.value;
+
   if (!email || !password) return SS.toast(T.err_fields, 'error');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return SS.toast(T.err_email, 'error');
+
+  if (!window.FB) {
+    console.error("Firebase is not loaded yet.");
+    return SS.toast("Firebase n'est pas encore chargé", "error");
+  }
+
   const btn = document.getElementById('ss-btn-login');
-  btn.disabled = true; btn.textContent = '...';
-  setTimeout(() => {
-    const name = email.split('@')[0];
-    SS.saveUser({ fname: name, email, provider: 'email' });
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  try {
+    const cred = await FB.signInWithEmailAndPassword(FB.auth, email, password);
+    const user = cred.user;
+
+    const userRef = FB.doc(FB.db, "users", user.uid);
+    const userSnap = await FB.getDoc(userRef);
+
+    let userProfile;
+
+    if (userSnap.exists()) {
+      userProfile = userSnap.data();
+    } else {
+      // Sécurité : si le compte existe dans Authentication mais pas encore dans Firestore
+      const name = email.split('@')[0];
+
+      userProfile = {
+        uid: user.uid,
+        fname: name,
+        lname: "",
+        name: name,
+        email: email,
+        provider: "email",
+        city: "",
+        bio: "",
+        offersAr: "",
+        wantsAr: "",
+        rating: 0,
+        createdAt: FB.serverTimestamp()
+      };
+
+      await FB.setDoc(userRef, userProfile);
+    }
+
+    SS.saveUser(userProfile);
     SS.closeRegModal();
-    SS.toast(T.toast_login(name));
-    btn.disabled = false; btn.textContent = T.btn_login;
-  }, 700);
+
+    const displayName = userProfile.fname || userProfile.name || email.split('@')[0];
+    SS.toast(T.toast_login(displayName));
+
+  } catch (error) {
+    console.error("Login error:", error);
+
+    let message = "Erreur lors de la connexion.";
+
+    if (error.code === "auth/invalid-credential") {
+      message = "Email ou mot de passe incorrect.";
+    } else if (error.code === "auth/user-not-found") {
+      message = "Aucun compte trouvé avec cet email.";
+    } else if (error.code === "auth/wrong-password") {
+      message = "Mot de passe incorrect.";
+    } else if (error.code === "auth/invalid-email") {
+      message = "Email invalide.";
+    }
+
+    SS.toast(message, "error");
+
+  } finally {
+    btn.disabled = false;
+    btn.textContent = T.btn_login;
+  }
 };
 
 SS._socialAuth = function(provider) {
