@@ -21,13 +21,14 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBXd2_4054rPqdepz09ReTM07br0n11xws",
-  authDomain: "skill-swap-mvp-9a260.firebaseapp.com",
-  projectId: "skill-swap-mvp-9a260",
-  storageBucket: "skill-swap-mvp-9a260.firebasestorage.app",
-  messagingSenderId: "556789622949",
-  appId: "1:556789622949:web:fd7570705aef3319e3054c",
-  measurementId: "G-ZG9S39XKJC"
+  apiKey: "AIzaSyDSRbIPafyR2NMidlr0-mUMRBcHgfIHgQM",
+  authDomain: "skill-swap-a7b9d.firebaseapp.com",
+  databaseURL: "https://skill-swap-a7b9d-default-rtdb.firebaseio.com",
+  projectId: "skill-swap-a7b9d",
+  storageBucket: "skill-swap-a7b9d.firebasestorage.app",
+  messagingSenderId: "960784899572",
+  appId: "1:960784899572:web:75449030822b13db6aada1",
+  measurementId: "G-JEQTZZDBX8"
 };
 
 const app = initializeApp(firebaseConfig);
